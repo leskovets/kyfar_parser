@@ -1,0 +1,6 @@
+python-dotenv==0.19.2
+pandas==1.5.3
+requests==2.28.2
+beautifulsoup4==4.11.2
+peewee==3.15.4
+aiogram==2.24
