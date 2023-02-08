@@ -9,12 +9,12 @@ import asyncio
 async def search_all() -> None:
 
     while True:
-        await asyncio.sleep(30)
+        await asyncio.sleep(60*5)
 
         all_search_response = get_search_request()
 
         for search_response in all_search_response:
-            text = search_response.text
+            text = search_response.search_text
             price_range = search_response.price_range
             chat_id = search_response.chat_id
 
@@ -27,6 +27,6 @@ async def search_all() -> None:
                     db_hendler.add_advertisement(chat_id=chat_id,
                                                  advertisement_id=advertisement['id'],
                                                  price=advertisement['price'],
-                                                 text=advertisement['title'],
+                                                 title=advertisement['title'],
                                                  search=search_response)
 
