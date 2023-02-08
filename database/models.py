@@ -20,7 +20,8 @@ class BaseModel(Model):
 class Search_request(BaseModel):
     id = IntegerField(primary_key=True)
     chat_id = IntegerField()
-    text = TextField()
+    title = CharField(max_length=50)
+    search_text = TextField()
     price_range = IntegerField()
 
     class Meta:
@@ -32,7 +33,7 @@ class Advertisement(BaseModel):
     chat_id = IntegerField()
     advertisement_id = IntegerField()
     search = ForeignKeyField(Search_request, related_name='pets', on_delete='cascade', on_update='cascade')
-    text = TextField()
+    title = TextField()
     price = IntegerField()
 
     class Meta:
