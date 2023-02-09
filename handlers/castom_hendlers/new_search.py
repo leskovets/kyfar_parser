@@ -86,8 +86,7 @@ async def create_search_request(message: Message, state: FSMContext):
 
     try:
         if not (message.text == 'Существ.' or message.text == 'Новые'):
-            raise TypeError('Выбери из предложенных вариантов!',
-                            reply_markup=keyboard_old_new)
+            raise TypeError('Выбери из предложенных вариантов!')
     except TypeError as e:
         await dp.bot.send_message(message.chat.id, e)
         return
