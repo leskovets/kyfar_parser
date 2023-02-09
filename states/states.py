@@ -3,7 +3,6 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 
 class CreateSearchRequestState(StatesGroup):
     title = State()
-    categories = State()
     text = State()
     min_price = State()
     max_price = State()
