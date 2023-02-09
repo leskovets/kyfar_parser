@@ -3,16 +3,15 @@ import re
 from bs4 import BeautifulSoup
 
 
-def get_advertisements(text: str, price_range: str) -> list:
+def get_advertisements(text: str, price_min: str, price_max: str) -> list:
 
     text = text.split(",")
-    price = price_range.split(",")
 
     url_templates = []
     for el in text:
         url_templates.append("https://www.kufar.by/l?cnd=1&prc=r%3A{}00%2C{}00&query={}&sort=lst.d".format(
-            price[0],
-            price[1],
+            price_min,
+            price_max,
             "+".join(el.split())))
 
     advertisements_list = []

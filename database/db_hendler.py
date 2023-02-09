@@ -27,12 +27,22 @@ def check_advertisement(chat_id: int, advertisement_id: int) -> list:
         Advertisement.chat_id == chat_id and Advertisement.advertisement_id == advertisement_id)]
 
 
-def add_search_request(chat_id: int, title: str, search_text: str, price_range: str) -> None:
-    Search_request(chat_id=chat_id, title=title, search_text=search_text, price_range=price_range).save()
+def add_search_request(chat_id: int, title: str, search_text: str, price_min: str, price_max) -> None:
+    Search_request(chat_id=chat_id, title=title, search_text=search_text,
+                   price_min=price_min, price_max=price_max).save()
 
 
-def edit_search_request(chat_id: int, title: str, search_text: str, price_range: str) -> None:
-    Search_request(chat_id=chat_id, title=title, search_text=search_text, price_range=price_range).save()
+def update_search_request(chat_id: int, title: str, command: str, new_value: str) -> None:
+    search = get_search_request_user_title(chat_id=chat_id, title=title)
+    if command == 'title':
+        search.title = new_value
+    if command == 'text':
+        search.search_text = new_value
+    if command == 'min':
+        search.price_min = new_value
+    if command == 'max':
+        search.price_max = new_value
+    search.save()
 
 
 def get_search_request() -> list:

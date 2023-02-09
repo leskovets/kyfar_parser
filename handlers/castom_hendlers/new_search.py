@@ -7,7 +7,7 @@ from keyboards.reply.new_search_markup import keyboard_old_new
 from parsing import kyfar
 from states.states import CreateSearchRequestState
 from loader import dp, bot
-from database.db_hendler import add_search_request, get_search_text_request, get_categories
+from database.db_hendler import add_search_request, get_search_text_request
 from database.db_hendler import get_search_request_user, check_search_request_user_title
 
 
@@ -93,17 +93,20 @@ async def create_search_request(message: Message, state: FSMContext):
         return
 
     async with state.proxy() as data:
-        search_text = data['search_text']
         title = data['title']
-        price_range = data['min_price'] + ',' + data['max_price']
-    add_search_request(chat_id=message.chat.id, title=title,
-                       search_text=search_text, price_range=price_range)
+        search_text = data['search_text']
+        price_min = data['min_price']
+        price_max = data['max_price']
+
+    add_search_request(chat_id=message.chat.id, title=title, search_text=search_text,
+                       price_min=price_min, price_max=price_max)
 
     await state.finish()
     await bot.send_message(message.chat.id, 'Поиск создан!', reply_markup=ReplyKeyboardRemove())
 
     search = get_search_text_request(search_text)
-    for advertisement in kyfar.get_advertisements(text=search_text, price_range=price_range):
+    kyfar_response = kyfar.get_advertisements(text=search_text, price_min=price_min, price_max=price_max)
+    for advertisement in kyfar_response:
         db_hendler.add_advertisement(chat_id=message.chat.id,
                                      advertisement_id=advertisement['id'],
                                      price=advertisement['price'],

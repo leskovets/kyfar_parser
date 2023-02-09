@@ -22,7 +22,8 @@ class Search_request(BaseModel):
     chat_id = IntegerField()
     title = CharField(max_length=50)
     search_text = TextField()
-    price_range = IntegerField()
+    price_min = IntegerField()
+    price_max = IntegerField()
 
     class Meta:
         db_table = "search requests"

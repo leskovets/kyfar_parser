@@ -15,10 +15,11 @@ async def search_all() -> None:
 
         for search_response in all_search_response:
             text = search_response.search_text
-            price_range = search_response.price_range
+            price_min = search_response.price_min
+            price_mxa = search_response.price_max
             chat_id = search_response.chat_id
 
-            for advertisement in kyfar.get_advertisements(text=text, price_range=price_range):
+            for advertisement in kyfar.get_advertisements(text=text, price_min=price_min, price_max=price_mxa):
                 if not len(db_hendler.check_advertisement(chat_id=chat_id, advertisement_id=advertisement['id'])):
                     text = hlink(advertisement['title'], advertisement['linc'])
                     text += ' Цена: '
