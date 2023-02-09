@@ -105,7 +105,7 @@ async def edit_title(message: Message, state: FSMContext):
             raise TypeError('Введи число!')
         async with state.proxy() as data:
             search = get_search_request_user_title(message.chat.id, data['title'])
-        if int(search.price_range.split(',')[0]) > int(message.text):
+        if int(search.price_min) > int(message.text):
             raise TypeError('Введи число больше минимального!')
     except TypeError as e:
         await bot.send_message(message.chat.id, e)
