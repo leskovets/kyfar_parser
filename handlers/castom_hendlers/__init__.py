@@ -1,1 +1,1 @@
-from . import new_search, my_search
+from . import new_search, my_searchs, get_categories

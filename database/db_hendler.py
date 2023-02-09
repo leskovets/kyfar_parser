@@ -1,4 +1,4 @@
-from .models import User, Advertisement, Search_request
+from .models import User, Advertisement, Search_request, Category
 
 
 def add_user(chat_id: int, status: str) -> None:
@@ -60,3 +60,17 @@ def check_search_request_user_title(chat_id: int, title: str) -> bool:
 
 def get_search_text_request(text: str) -> Search_request:
     return Search_request.get(Search_request.search_text == text)
+
+
+def add_category(name: str, url: str, father_name: str = None) -> None:
+    Category(name=name, url=url, father_name=father_name).save()
+
+
+def check_category(name: str) -> bool:
+    if len(Category.select().where(Category.name == name)):
+        return True
+    return False
+
+
+def get_categories(name: str = None) -> list:
+    return Category.select().where(Category.name == name)

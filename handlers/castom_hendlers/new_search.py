@@ -7,7 +7,7 @@ from keyboards.reply.new_search_markup import keyboard_old_new
 from parsing import kyfar
 from states.states import CreateSearchRequestState
 from loader import dp, bot
-from database.db_hendler import add_search_request, get_search_text_request
+from database.db_hendler import add_search_request, get_search_text_request, get_categories
 from database.db_hendler import get_search_request_user, check_search_request_user_title
 
 
