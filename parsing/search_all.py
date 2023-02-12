@@ -1,7 +1,7 @@
 from database.db_hendler import get_search_request
 from parsing import kyfar
 from database import db_hendler
-from loader import dp
+from loader import dp, logger
 from aiogram.utils.markdown import hlink
 import asyncio
 
@@ -10,7 +10,7 @@ async def search_all() -> None:
 
     while True:
         await asyncio.sleep(60*5)
-
+        logger.info("выполняется проверка")
         all_search_response = get_search_request()
 
         for search_response in all_search_response:
@@ -20,7 +20,7 @@ async def search_all() -> None:
             chat_id = search_response.chat_id
 
             for advertisement in kyfar.get_advertisements(text=text, price_min=price_min, price_max=price_mxa):
-                if not len(db_hendler.check_advertisement(chat_id=chat_id, advertisement_id=advertisement['id'])):
+                if not db_hendler.check_advertisement(chat_id=chat_id, advertisement_id=advertisement['id']):
                     text = hlink(advertisement['title'], advertisement['linc'])
                     text += ' Цена: '
                     text += str(advertisement['price']) if not advertisement['price'] == 0 else 'Договорная'

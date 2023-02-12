@@ -4,3 +4,4 @@ requests==2.28.2
 beautifulsoup4==4.11.2
 peewee==3.15.4
 aiogram==2.24
+loguru==0.6.0

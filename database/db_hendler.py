@@ -22,9 +22,11 @@ def get_advertisement(chat_id: int) -> list:
     return [x for x in Advertisement.select().where(Advertisement.chat_id == chat_id)]
 
 
-def check_advertisement(chat_id: int, advertisement_id: int) -> list:
-    return [x for x in Advertisement.select().where(
-        Advertisement.chat_id == chat_id and Advertisement.advertisement_id == advertisement_id)]
+def check_advertisement(chat_id: int, advertisement_id: int) -> bool:
+    if len([x for x in Advertisement.select().where(
+            Advertisement.chat_id == chat_id and Advertisement.advertisement_id == advertisement_id)]) == 0:
+        return False
+    return True
 
 
 def add_search_request(chat_id: int, title: str, search_text: str, price_min: str, price_max) -> None:
